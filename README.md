@@ -1,3 +1,3 @@
 # Diffie-Hellman
 
-using openssl
+using OpenSSL library
