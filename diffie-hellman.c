@@ -219,35 +219,35 @@ bool Miller_Rabin_Test(BIGNUM *n, BIGNUM *a)
 
 int main (int argc, char *argv[]) 
 {
-	BIGNUM *sharedSecret = BN_new();
-	BOB10_DH_PARAM *dhp = BOB10_DH_PARAM_new();
-	BOB10_DH_KEYPAIR *aliceK = BOB10_DH_KEYPAIR_new();
-	BOB10_DH_KEYPAIR *bobK = BOB10_DH_KEYPAIR_new();
+    BIGNUM *sharedSecret = BN_new();
+    BOB10_DH_PARAM *dhp = BOB10_DH_PARAM_new();
+    BOB10_DH_KEYPAIR *aliceK = BOB10_DH_KEYPAIR_new();
+    BOB10_DH_KEYPAIR *bobK = BOB10_DH_KEYPAIR_new();
 
-	BOB10_DH_ParamGenPQ(dhp, 2048, 256);
+    BOB10_DH_ParamGenPQ(dhp, 2048, 256);
     printf("p=0x");BN_print_fp(stdout,dhp->p);printf("\n");
-	printf("q=0x");BN_print_fp(stdout,dhp->q);printf("\n");
+    printf("q=0x");BN_print_fp(stdout,dhp->q);printf("\n");
 	
     BOB10_DH_ParamGenG(dhp);
-	printf("g=0x");BN_print_fp(stdout,dhp->g);printf("\n");
+    printf("g=0x");BN_print_fp(stdout,dhp->g);printf("\n");
 
-	BOB10_DH_KeypairGen(aliceK,dhp);
-	printf("alicePuk=0x");BN_print_fp(stdout,aliceK->puk);printf("\n");
-	printf("alicePrk=0x");BN_print_fp(stdout,aliceK->prk);printf("\n");
+    BOB10_DH_KeypairGen(aliceK,dhp);
+    printf("alicePuk=0x");BN_print_fp(stdout,aliceK->puk);printf("\n");
+    printf("alicePrk=0x");BN_print_fp(stdout,aliceK->prk);printf("\n");
 
-	BOB10_DH_KeypairGen(bobK,dhp);
-	printf("bobPuk=0x");BN_print_fp(stdout,bobK->puk);printf("\n");
-	printf("bobPrk=0x");BN_print_fp(stdout,bobK->prk);printf("\n");
+    BOB10_DH_KeypairGen(bobK,dhp);
+    printf("bobPuk=0x");BN_print_fp(stdout,bobK->puk);printf("\n");
+    printf("bobPrk=0x");BN_print_fp(stdout,bobK->prk);printf("\n");
 
-	BOB10_DH_Derive(sharedSecret, bobK->puk, aliceK, dhp);
-	printf("SS1=0x");BN_print_fp(stdout,sharedSecret);printf("\n");
-	BOB10_DH_Derive(sharedSecret, aliceK->puk, bobK, dhp);
-	printf("SS2=0x");BN_print_fp(stdout,sharedSecret);printf("\n");
+    BOB10_DH_Derive(sharedSecret, bobK->puk, aliceK, dhp);
+    printf("SS1=0x");BN_print_fp(stdout,sharedSecret);printf("\n");
+    BOB10_DH_Derive(sharedSecret, aliceK->puk, bobK, dhp);
+    printf("SS2=0x");BN_print_fp(stdout,sharedSecret);printf("\n");
 
-	BOB10_DH_PARAM_free(dhp);
-	BOB10_DH_KEYPAIR_free(aliceK);
-	BOB10_DH_KEYPAIR_free(bobK);
-	BN_free(sharedSecret);
+    BOB10_DH_PARAM_free(dhp);
+    BOB10_DH_KEYPAIR_free(aliceK);
+    BOB10_DH_KEYPAIR_free(bobK);
+    BN_free(sharedSecret);
 
-	return 0;
+    return 0;
 }
