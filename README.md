@@ -1,3 +1,3 @@
 # Diffie-Hellman
 
-using OpenSSL library
+using OpenSSL library(openssl/bn.h)
